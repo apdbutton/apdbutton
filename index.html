@@ -1,37 +1,49 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="UTF-8">
-  <title>Access personal data simulator</title>
-  <style>
-    button {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-    }
-  </style>
-</head>
-<body>
-  <button id="myButton">Access personal data</button>
-  <audio src="https://github.com/apdbutton/apdbutton/raw/main/X2Download.app%20-%20MC%20Hammer%20-%20U%20Can't%20Touch%20This%20(HQ)%20(64%20kbps).mp3" autoplay></audio>
-  <script>
-    // Get the button element
-    const button = document.getElementById("myButton");
+  <head>
+    <meta charset="UTF-8">
+    <title>Access personal data simulator</title>
+    <style>
+      button {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+    </style>
+  </head>
+  <body>
+    <button id="myButton">Access personal data</button>
+    <audio id="myAudio" src="https://github.com/apdbutton/apdbutton/raw/main/X2Download.app%20-%20MC%20Hammer%20-%20U%20Can't%20Touch%20This%20(HQ)%20(64%20kbps).mp3"></audio>
+    <script>
+      const button = document.getElementById("myButton");
+      const audio = document.getElementById("myAudio");
+      let accessGranted = false;
 
-    // Define a function to move the button to a random position
-    function moveButton() {
-      // Calculate a random position
-      const x = Math.floor(Math.random() * window.innerWidth);
-      const y = Math.floor(Math.random() * window.innerHeight);
+      function moveButton() {
+        if (accessGranted) {
+          const maxX = window.innerWidth - button.offsetWidth;
+          const maxY = window.innerHeight - button.offsetHeight;
+          let x = Math.max(0, Math.min(maxX, Math.floor(Math.random() * window.innerWidth)));
+          let y = Math.max(0, Math.min(maxY, Math.floor(Math.random() * window.innerHeight)));
+          if (x + button.offsetWidth > window.innerWidth) {
+            x = window.innerWidth - button.offsetWidth;
+          }
+          if (y + button.offsetHeight > window.innerHeight) {
+            y = window.innerHeight - button.offsetHeight;
+          }
+          button.style.left = x + "px";
+          button.style.top = y + "px";
+        }
+      }
 
-      // Set the button's position to the random position
-      button.style.left = x + "px";
-      button.style.top = y + "px";
-    }
+      button.addEventListener("click", function() {
+        accessGranted = true;
+        audio.play();
+        moveButton();
+      });
 
-    // Add an event listener to the button to move it on hover
-    button.addEventListener("mouseover", moveButton);
-  </script>
-</body>
+      button.addEventListener("mouseover", moveButton);
+    </script>
+  </body>
 </html>

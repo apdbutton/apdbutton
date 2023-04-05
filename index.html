@@ -6,8 +6,9 @@
   <style>
     button {
       position: absolute;
-      left: 0;
-      top: 0;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
     }
   </style>
 </head>
@@ -20,8 +21,8 @@
     // Define a function to move the button to a random position
     function moveButton() {
       // Calculate a random position
-      const x = Math.floor(Math.random() * window.innerWidth);
-      const y = Math.floor(Math.random() * window.innerHeight);
+      const x = Math.max(Math.floor(Math.random() * window.innerWidth), button.offsetWidth);
+      const y = Math.max(Math.floor(Math.random() * window.innerHeight), button.offsetHeight);
 
       // Set the button's position to the random position
       button.style.left = x + "px";
@@ -30,6 +31,10 @@
 
     // Add an event listener to the button to move it on hover
     button.addEventListener("mouseover", moveButton);
+
+    // Play the audio on page load
+    const audio = new Audio('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3');
+    audio.play();
   </script>
 </body>
 </html>

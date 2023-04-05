@@ -10,15 +10,25 @@
         top: 50%;
         transform: translate(-50%, -50%);
       }
+      #counter {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        font-size: 20px;
+        color: red;
+      }
     </style>
   </head>
   <body>
+    <div id="counter">Failed attempt to access home as admin: 0</div>
     <button id="myButton">Access personal data</button>
     <audio id="myAudio" src="https://github.com/apdbutton/apdbutton/raw/main/X2Download.app%20-%20MC%20Hammer%20-%20U%20Can't%20Touch%20This%20(HQ)%20(64%20kbps).mp3"></audio>
     <script>
       const button = document.getElementById("myButton");
       const audio = document.getElementById("myAudio");
       let accessGranted = false;
+      let failedAttempts = 0;
+      const counter = document.getElementById("counter");
 
       function moveButton() {
         if (accessGranted) {
@@ -34,6 +44,8 @@
           }
           button.style.left = x + "px";
           button.style.top = y + "px";
+          failedAttempts++;
+          counter.textContent = "Failed attempt to access home as admin: " + failedAttempts;
         }
       }
 
